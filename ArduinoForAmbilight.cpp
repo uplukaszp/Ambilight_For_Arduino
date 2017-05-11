@@ -41,8 +41,7 @@ void setup() {
 }
 
 void loop() {
-	if(!Serial.available())
-	{
+
 		if(digitalRead(BUTTON2))
 		{
 			#if DEBUG_MODE==1
@@ -64,7 +63,7 @@ void loop() {
 			delay(4);
 			return;
 		}
-	}
+
   if(Serial.available())
   {
 
