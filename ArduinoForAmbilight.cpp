@@ -2,6 +2,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <EEPROM.h>
 #include <avr/pgmspace.h>
+#include "ColorTable.h"
 // d3,d4 switch
 //d5 data
 
@@ -12,44 +13,23 @@
 #define START_ADDRESS 1
 #define BUTTON1 10
 #define BUTTON2 4
+#define DEBUG_MODE 0
 
-struct color
-{
-	color(uint8_t r,uint8_t g,uint8_t b):r(r),g(g),b(b){};
-	uint8_t r,g,b;
-};
-
-
-Adafruit_NeoPixel leds = Adafruit_NeoPixel(AMMOUNT, PIN, NEO_GRB + NEO_KHZ800);
-byte data[(3 * AMMOUNT)+1];
-float brightness=1.0f;
-bool isGrowingBrightness=false;
-uint8_t currentColor=0;
-uint8_t colorCount=10;
-
-const color colors[] ={
-		color(0,0,0),
-		color(255,0,0),
-		color(0,255,0),
-		color(0,0,255),
-		color(255,255,255),
-		color(255,255,54),
-		color(255,0,255),
-		color(255,255,0),
-		color(147,255,0),
-		color(255,165,0),
-
-};
-
-void updateColors(color c);
 void updateRecivedColors();
 void saveInEEPROM();
 void readFromEEPROM();
 void clearBuffer();
-void changeBrightnes();
+void setColor(Color c,unsigned long del);
+
+Adafruit_NeoPixel leds = Adafruit_NeoPixel(AMMOUNT, PIN);
+byte data[(3 * AMMOUNT)+1];
+ColorTable colors;
+
+
 
 void setup() {
   leds.begin();
+  leds.show();
   readFromEEPROM();
   updateRecivedColors();
   Serial.begin(250000);
@@ -61,26 +41,30 @@ void setup() {
 }
 
 void loop() {
+	if(!Serial.available())
+	{
+		if(digitalRead(BUTTON2))
+		{
+			#if DEBUG_MODE==1
+				Serial.print("btn2\n");
+			#endif
 
-
-    if(digitalRead(BUTTON2)==HIGH)
-    {
-
-    	updateColors(colors[currentColor]);
-    	currentColor++;
-    	if(currentColor>=colorCount)
-    	{
-    		currentColor=0;
-    	}
-      delay (500);
-    }
-    if(digitalRead(BUTTON1))
-    {
-    	changeBrightnes();
-    	delay(10);
-    }
-
-
+			setColor(colors.nextColor(),10);
+			delay (500);
+			return;
+		}
+		if(digitalRead(BUTTON1))
+		{
+			#if DEBUG_MODE==1
+				Serial.print("btn1\n");
+				Serial.print(colors.currentColor().toString());
+			#endif
+			colors.currentColor().changeBrightness();
+			setColor(colors.currentColor(),0);
+			delay(4);
+			return;
+		}
+	}
   if(Serial.available())
   {
 
@@ -93,42 +77,24 @@ void loop() {
     {
       updateRecivedColors();
     }
-
+    return;
   }
 
 
 }
-void changeBrightnes()
-{
-	if(isGrowingBrightness)
-	{
-		brightness+=0.01f;
-		if(brightness>=1.0f)
-		{
-			isGrowingBrightness=false;
-		}
-	}else
-	{
-		brightness-=0.01f;
-		if(brightness<=0)
-		{
-			isGrowingBrightness=true;
-		}
-	}
-	updateColors(colors[currentColor]);
-	leds.show();
-}
 
-void updateColors(color c)
+
+
+void setColor(Color c,unsigned long del)
 {
 	for(int i=0;i<AMMOUNT;i++)
-		{
-			leds.setPixelColor(i,(uint8_t)c.r*brightness, (uint8_t)c.g*brightness, (uint8_t)c.b*brightness);
-		}
+	{
+		leds.setPixelColor(i, c.getR(), c.getG(),c.getB());
+		delay(del);
 		leds.show();
+	}
+
 }
-
-
 void updateRecivedColors()
 {
    for (int i = 0; i < (3 * AMMOUNT); i += 3)
