@@ -13,8 +13,7 @@ Showable::Showable() {
 }
 void Showable::show(Adafruit_NeoPixel& leds)
 {
-	Serial.print("show in showable\n");
-	for(int i=0;i<leds.numPixels();i++)
+	for(uint8_t i=0;i<leds.numPixels();i++)
 	{
 		leds.setPixelColor(i, 0);
 	}

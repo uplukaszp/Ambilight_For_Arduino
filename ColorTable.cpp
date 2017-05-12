@@ -10,9 +10,6 @@ ColorTable::~ColorTable() {
 }
 void ColorTable::show(Adafruit_NeoPixel& leds)
 {
-	Serial.print("show in colorTable ");
-	Serial.print(colorTable.size());
-	Serial.print("\n");
 	for(int i=0;i<colorTable.size();i++)
 	{
 		colorTable[i]->show(leds);
