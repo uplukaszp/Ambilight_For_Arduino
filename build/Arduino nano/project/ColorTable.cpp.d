@@ -12,6 +12,8 @@ project/ColorTable.cpp.o: ../../ColorTable.cpp ../../ColorTable.h \
  C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/cores/arduino/Arduino.h \
  C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/variants/eightanaloginputs/pins_arduino.h \
  C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/variants/eightanaloginputs/../standard/pins_arduino.h \
+ ../../Showable.h \
+ C:/Users/Lukasz/.arduinocdt/libraries/Adafruit_NeoPixel/1.1.1/Adafruit_NeoPixel.h \
  C:/Users/Lukasz/.arduinocdt/libraries/ArduinoSTL/1.0.2/src/vector \
  C:/Users/Lukasz/.arduinocdt/libraries/ArduinoSTL/1.0.2/src/basic_definitions \
  C:/Users/Lukasz/.arduinocdt/libraries/ArduinoSTL/1.0.2/src/system_configuration.h \

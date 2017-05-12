@@ -1,4 +1,5 @@
-project/Color.cpp.o: ../../Color.cpp ../../Color.h \
+project/Showable.cpp.o: ../../Showable.cpp ../../Showable.h \
+ C:/Users/Lukasz/.arduinocdt/libraries/Adafruit_NeoPixel/1.1.1/Adafruit_NeoPixel.h \
  C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/cores/arduino/Arduino.h \
  C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/cores/arduino/binary.h \
  C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/cores/arduino/WCharacter.h \
@@ -10,6 +11,4 @@ project/Color.cpp.o: ../../Color.cpp ../../Color.h \
  C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/cores/arduino/USBAPI.h \
  C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/cores/arduino/Arduino.h \
  C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/variants/eightanaloginputs/pins_arduino.h \
- C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/variants/eightanaloginputs/../standard/pins_arduino.h \
- ../../Showable.h \
- C:/Users/Lukasz/.arduinocdt/libraries/Adafruit_NeoPixel/1.1.1/Adafruit_NeoPixel.h
+ C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/variants/eightanaloginputs/../standard/pins_arduino.h

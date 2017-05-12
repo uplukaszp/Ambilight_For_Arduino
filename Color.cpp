@@ -6,9 +6,10 @@
  */
 
 #include "Color.h"
-
-Color::Color(uint8_t r,uint8_t g,uint8_t b,uint8_t brightness=1.0f)
-:r(r),g(g),b(b),brightness(brightness),isGrowing(true),step(0.01f)
+float Color::step;
+float Color::brightness;
+Color::Color(uint8_t r,uint8_t g,uint8_t b,uint8_t brightness=1.0f,uint16_t pos=-1)
+:r(r),g(g),b(b),pos(pos),isGrowing(true)//brightness(brightness),pos(pos),isGrowing(true),step(0.06f)
 {}
 
 Color::~Color() {
@@ -16,8 +17,10 @@ Color::~Color() {
 
 char* Color::toString()
 {
-			char buff[24];
-			sprintf(buff,"R: %d, G: %d, B: %d, BR: %f\n",r,g,b,brightness);
+			char buff[50];
+			char temp[6];
+			dtostrf(brightness,4,2,temp);
+			sprintf(buff,"R: %d, G: %d, B: %d, BR: %s, POS: %d\n",r,g,b,temp,pos);
 			return buff;
 }
 uint8_t Color::getR()
@@ -52,3 +55,25 @@ void Color::changeBrightness()
 		}
 	}
 }
+void Color::show(Adafruit_NeoPixel& leds)
+{
+	Serial.print(toString());
+	if(pos==-1)
+	{
+		for(int i=0;i<leds.numPixels();i++)
+		{
+			leds.setPixelColor(i, getR(), getG(), getB());
+			leds.show();
+			delay(10);
+		}
+	}
+	else
+	{
+		Serial.print("single pixel\n");
+		leds.setPixelColor(pos, getR(), getG(), getB());
+		leds.show();
+		delay(10);
+	}
+
+}
+

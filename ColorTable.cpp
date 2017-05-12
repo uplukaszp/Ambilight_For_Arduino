@@ -3,23 +3,23 @@
 
 ColorTable::ColorTable():currentI(0) {
 
-	colorTable.push_back(Color(0,0,0));
-	colorTable.push_back(Color(255,0,0));
-	colorTable.push_back(Color(0,255,0));
-	colorTable.push_back(Color(0,0,255));
-	colorTable.push_back(Color(255,255,255));
-	colorTable.push_back(Color(255,255,54));
-	colorTable.push_back(Color(255,0,255));
-	colorTable.push_back(Color(255,255,0));
-	colorTable.push_back(Color(147,255,0));
-	colorTable.push_back(Color(255,165,0));
 }
 
 ColorTable::~ColorTable() {
 	colorTable.clear();
 }
+void ColorTable::show(Adafruit_NeoPixel& leds)
+{
+	Serial.print("show in colorTable ");
+	Serial.print(colorTable.size());
+	Serial.print("\n");
+	for(int i=0;i<colorTable.size();i++)
+	{
+		colorTable[i]->show(leds);
+	}
+}
 
-Color& ColorTable::nextColor()
+Showable* ColorTable::nextColor()
 {
 	currentI++;
 	if(currentI>=colorTable.size())
@@ -29,8 +29,18 @@ Color& ColorTable::nextColor()
 
 	return colorTable.at(currentI);
 }
-Color& ColorTable::currentColor()
+Showable* ColorTable::currentColor()
 {
 	return colorTable.at(currentI);
 }
-
+void ColorTable::changeBrightness()
+{
+	for(int i=0;i<colorTable.size();i++)
+	{
+		colorTable[i]->changeBrightness();
+	}
+}
+void ColorTable::add(Showable *s)
+{
+	colorTable.push_back(s);
+}

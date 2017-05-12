@@ -13,6 +13,7 @@ PROJECT_OBJS = \
 	project/ArduinoForAmbilight.cpp.o \
 	project/Color.cpp.o \
 	project/ColorTable.cpp.o \
+	project/Showable.cpp.o \
 
 PLATFORM_CORE_OBJS = \
 	core/abi.cpp.o \
@@ -143,6 +144,14 @@ project/ColorTable.cpp.o: ../../ColorTable.cpp project/ColorTable.cpp.d
 project/ColorTable.cpp.d: ;
 
 -include project/ColorTable.cpp.d 
+
+project/Showable.cpp.o: ../../Showable.cpp project/Showable.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"C:/Users/Lukasz/.arduinocdt/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/cores/arduino" -I"C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/variants/eightanaloginputs" -I"C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/libraries/Wire/src" -I"C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/libraries/SPI/src" -I"C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/libraries/HID/src" -I"C:/Users/Lukasz/.arduinocdt/libraries/Adafruit_NeoPixel/1.1.1" -I"C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/libraries/SoftwareSerial/src" -I"C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/libraries/EEPROM/src" -I"C:/Users/Lukasz/.arduinocdt/libraries/QList/0.5.1/src" -I"C:/Users/Lukasz/.arduinocdt/libraries/ArduinoSTL/1.0.2/src" "$<" -o "$@"
+
+project/Showable.cpp.d: ;
+
+-include project/Showable.cpp.d 
 
 
 core/abi.cpp.o: C:/Users/Lukasz/.arduinocdt/packages/arduino/hardware/avr/1.6.18/cores/arduino/abi.cpp core/abi.cpp.d
