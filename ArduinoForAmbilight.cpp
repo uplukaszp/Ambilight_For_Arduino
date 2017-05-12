@@ -15,7 +15,7 @@
 
 void updateRecivedColors();
 void saveInEEPROM();
-void readFromEEPROM();
+ColorTable* readFromEEPROM();
 void clearBuffer();
 void setColor(Color c,unsigned long del);
 
@@ -34,7 +34,7 @@ Serial.print("start setup");
   pinMode(13,OUTPUT);
   clearBuffer();
 
-
+  colors.add(readFromEEPROM());
   colors.add(new Color(0,0,0));
   colors.add(new Color(255,0,0));
   colors.add(new Color(0,255,0));
@@ -46,9 +46,6 @@ Serial.print("start setup");
   colors.add(new Color(147,255,0));
   colors.add(new Color(255,165,0));
   colors.currentColor()->show(leds);
-
-  readFromEEPROM();
-  //updateRecivedColors();
 }
 
 void loop() {
@@ -106,37 +103,20 @@ void saveInEEPROM()
     }
 }
 
-void readFromEEPROM()
+ColorTable* readFromEEPROM()
 {
-	int j=0;
-	int k=0;
-	uint8_t r,g,b;
 	ColorTable *c=new ColorTable();
-
-	Serial.print("start reading\n");
-	for (int i = 0; i < (3* AMMOUNT); i ++)
+	uint8_t r,g,b,pos;
+	pos=0;
+	for (int i = 0; i < (3* AMMOUNT); i+=3)
     {
-		Serial.print("j= ");
-		Serial.print(j);
-		Serial.print(" k= ");
-		Serial.print(k);
-		Serial.print("\n");
-
-       	data[i]=EEPROM.read(START_ADDRESS+i);
-       	if(j==0)r=data[i];
-       	if(j==1)g=data[i];
-       	if(j==2)
-       	{
-       		b=data[i];
-       		c->add(new Color(r,g,b,1.0f,k));
-       		j=0;
-       		k++;
-       		continue;
-       	}
-       	j++;
+		r=EEPROM.read(START_ADDRESS+i);
+		g=EEPROM.read(START_ADDRESS+i+1);
+		b=EEPROM.read(START_ADDRESS+i+2);
+		c->add(new Color(r,g,b,pos));
+		pos++;
     }
-	Serial.print("end\n");
-	colors.add(c);
+	return c;
 }
 void clearBuffer()
 {

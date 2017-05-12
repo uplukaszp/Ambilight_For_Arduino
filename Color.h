@@ -11,7 +11,7 @@
 #include "Showable.h"
 class Color:public Showable {
 public:
-	Color(uint8_t r,uint8_t g,uint8_t b,uint8_t brightness=1.0f,uint16_t pos=-1);
+	Color(uint8_t r,uint8_t g,uint8_t b,uint16_t pos=-1);
 	virtual ~Color();
 	char* toString();
 	uint8_t getR();
@@ -21,7 +21,7 @@ public:
 	virtual void show(Adafruit_NeoPixel& leds);
 private:
 		uint8_t r,g,b;
-		static float brightness=1.0f;
+		float brightness=1.0f;
 		bool isGrowing=true;
 		static float step=0.06f;
 		uint16_t pos;

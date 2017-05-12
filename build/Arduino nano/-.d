@@ -1,2 +1,2 @@
-.sc3772400054937542956.o: \
- C:\D\java\ArduinoForAmbilight\Ardtuino_For_Ambilight\.sc3772400054937542956.cpp
+.sc1209494684465859755.o: \
+ C:\D\java\ArduinoForAmbilight\Ardtuino_For_Ambilight\.sc1209494684465859755.cpp
